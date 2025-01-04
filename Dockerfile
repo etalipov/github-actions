@@ -21,7 +21,6 @@ RUN poetry install --no-interaction && \
     yes | poetry cache clear --all --no-interaction .
 
 COPY src ./
-COPY tests ./tests
 
 FROM draft AS release
 
