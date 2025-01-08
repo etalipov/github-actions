@@ -8,9 +8,20 @@ on:
 
 jobs:
   build:            
+    # environment:
+    #   name: github-pages
+    #   url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest   
 
     steps:
-    - uses: actions/checkout@v4                       
+    - uses: actions/checkout@v4
+    - name: Prepare
+      run: cp .env.template src/.env                       
+    
+    # - name: Deploy to github pages
+    #   id: deployment
+    #   uses: actions/deploy-pages@v2
+    
     - name: Run docker-compose
       uses: hoverkraft-tech/compose-action@v2.0.1
