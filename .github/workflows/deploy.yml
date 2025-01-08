@@ -7,27 +7,10 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-    strategy:      
-      matrix:
-        python-version: ["3.12"]
-        poetry-version: ["1.8.0"]
-        
+  build:            
     runs-on: ubuntu-latest   
 
     steps:
-    - uses: actions/checkout@v4           
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install Poetry
-      uses: abatilo/actions-poetry@v2
-      with:
-        poetry-version: ${{ matrix.poetry-version }}
-
-    - name: Install Dependencies
-      run: cd src && poetry install
-    
-    - name: Run
-      run: docker-compose up -d --build
+    - uses: actions/checkout@v4                       
+    - name: Run docker-compose
+      uses: hoverkraft-tech/compose-action@v2.0.1
