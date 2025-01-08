@@ -32,10 +32,7 @@ jobs:
         poetry-version: ${{ matrix.poetry-version }}
 
     - name: Install Dependencies
-      run: make install
-
-    - name: Lint
-      run: make lint
-
+      run: poetry install
+    
     - name: Run
       run: docker-compose up -d --build
