@@ -16,12 +16,7 @@ jobs:
     runs-on: ubuntu-latest   
 
     steps:
-    - uses: actions/checkout@v4
-      with:
-        sparse-checkout: |
-          src
-        sparse-checkout-cone-mode: false
-
+    - uses: actions/checkout@v4           
     - uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
@@ -32,7 +27,7 @@ jobs:
         poetry-version: ${{ matrix.poetry-version }}
 
     - name: Install Dependencies
-      run: poetry install
+      run: cd src && poetry install
     
     - name: Run
       run: docker-compose up -d --build
