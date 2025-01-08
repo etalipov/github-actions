@@ -1,7 +1,7 @@
 name: Build and Push Docker Image
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 env:
@@ -83,3 +83,14 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+      
+      - name: Test          
+        env:              
+          TAGS: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          version: ${{ steps.meta.outputs.version }}
+          json: ${{ steps.meta.outputs.json }}
+          DIGEST: ${{ steps.build-and-push.outputs.digest }}
+          imageid: ${{ steps.build-and-push.outputs.imageid }}
+          
+        run: python test.py
