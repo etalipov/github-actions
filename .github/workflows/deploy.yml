@@ -1,0 +1,41 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:      
+      matrix:
+        python-version: ["3.12"]
+        poetry-version: ["1.8.0"]
+        
+    runs-on: ubuntu-latest   
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          src
+        sparse-checkout-cone-mode: false
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Poetry
+      uses: abatilo/actions-poetry@v2
+      with:
+        poetry-version: ${{ matrix.poetry-version }}
+
+    - name: Install Dependencies
+      run: make install
+
+    - name: Lint
+      run: make lint
+
+    - name: Run
+      run: docker-compose up -d --build
