@@ -1,7 +1,7 @@
 name: Build and Push Docker Image
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
     branches: [ "main" ]
 env:
@@ -94,3 +94,11 @@ jobs:
           imageid: ${{ steps.build-and-push.outputs.imageid }}
           
         run: python test.py
+
+      - name: Install fly
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: deploy fly        
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          
+        run: flyctl deploy ./src --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.build-and-push.outputs.imageid }} --remote-only
