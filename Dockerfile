@@ -25,4 +25,4 @@ COPY .env.template ./.env
 
 FROM draft AS release
 
-RUN python manage.py migrate && python manage.py collectstatic --noinput && gunicorn config.wsgi
+RUN python manage.py collectstatic --noinput
