@@ -1,2 +1,1 @@
-web: cp .env.example src/.env
 web: python manage.py migrate && gunicorn config.wsgi
