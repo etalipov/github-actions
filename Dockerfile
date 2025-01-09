@@ -25,4 +25,4 @@ COPY .env.template ./.env
 
 FROM draft AS release
 
-RUN python manage.py collectstatic --noinput
+#RUN python manage.py collectstatic --noinput
