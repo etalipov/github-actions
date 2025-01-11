@@ -27,4 +27,6 @@ EXPOSE 8000
 
 FROM draft AS release
 
+RUN mkdir static
+
 #RUN python manage.py collectstatic --noinput
