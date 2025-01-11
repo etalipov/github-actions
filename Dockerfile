@@ -23,8 +23,6 @@ RUN poetry install --no-interaction && \
 COPY src ./
 COPY .env.template ./.env
 
-EXPOSE 8000
-
 FROM draft AS release
 
-#RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
