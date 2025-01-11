@@ -20,7 +20,7 @@ COPY src/pyproject.toml src/poetry.lock ./
 RUN poetry install --no-interaction && \
     yes | poetry cache clear --all --no-interaction .
 
-COPY ./ ./
+COPY src ./
 COPY .env.template ./.env
 
 FROM draft AS release

@@ -1,0 +1,6 @@
+[build]
+builder = "DOCKERFILE"
+
+[deploy]
+startCommand = "python src/manage.py migrate && python src/manage.py collectstatic --noinput && gunicorn config.wsgi"
+restartPolicyType = "never"
