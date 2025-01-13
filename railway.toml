@@ -2,5 +2,6 @@
 builder = "DOCKERFILE"
 
 [deploy]
+preDeployCommand = "python manage.py migrate"
 startCommand = "gunicorn config.wsgi"
 restartPolicyType = "never"
