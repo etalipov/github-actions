@@ -21,7 +21,6 @@ RUN poetry install --no-interaction && \
     yes | poetry cache clear --all --no-interaction .
 
 COPY src ./
-COPY .env.template ./.env
 
 FROM draft AS release
 
